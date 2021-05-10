@@ -4,9 +4,9 @@ const Player = () => {
 	const urlAPI = "https://assets.breatheco.de/apis/sound/";
 	const [list, setList] = useState([]);
 	const [urlSong, setUrlSong] = useState(
-		"files/cartoons/songs/power-rangers.mp3"
+		"files/videogame/songs/sonic_brain-zone.mp3"
 	);
-	const [songIndex, setSongIndex] = useState(17);
+	const [songIndex, setSongIndex] = useState(11);
 	const myAudio = useRef();
 
 	useEffect(() => {
