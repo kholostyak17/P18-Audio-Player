@@ -1,11 +1,40 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
+body{
+    background-color: black;
+}
+.box{
+    background-color: rgb(30, 9, 66);
+    width: 30rem;
+    margin: 2rem auto;
+    border-radius: 1em;
+}
+ul{
+    overflow-y: scroll;
+    height: 25rem;
+    margin: 20rem, 0;
+}
 li{
+    font-size: 2rem;
     list-style:none;
-    border-style: solid;
-    border-color: black;
-    border-width: 1px;
-    border-top: none;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    border-bottom-width: 2px;
+    text-align: center;
+    color: chartreuse;
+    padding:0.5rem;
+}
+video{
+    margin: 0 3rem;
+}
+footer{
+    padding: 1rem;
+    margin: 1rem, auto;
     text-align: center;
 }
-
+i{
+    font-size: 3rem;
+    color: chartreuse;
+    margin:1rem;
+    
+}
