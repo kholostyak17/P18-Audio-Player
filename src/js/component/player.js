@@ -40,7 +40,6 @@ const Player = () => {
 	});
 
 	const previousSong = index => {
-		console.log(index - 1, list[index - 1].name, list[index - 1].url);
 		if (index == 0) {
 			setUrlSong(list[list.length - 1].url);
 		} else {
@@ -48,7 +47,6 @@ const Player = () => {
 		}
 	};
 	const nextSong = index => {
-		console.log(index + 1, list[index + 1].name, list[index + 1].url);
 		if (index == list.length - 1) {
 			setUrlSong(list[0].url);
 		} else {
