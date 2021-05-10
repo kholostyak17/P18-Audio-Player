@@ -1,13 +1,11 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
-/* 
+li{
+    list-style:none;
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-top: none;
+    text-align: center;
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
-
-*/
