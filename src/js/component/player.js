@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 
 const Player = () => {
 	const urlAPI = "https://assets.breatheco.de/apis/sound/";
-	const [urlSong, setUrlSong] = useState(
-		"files/videogame/songs/sonic_brain-zone.mp3"
-	);
-	const [songPlaying, setSongPlaying] = useState(11);
 	const [list, setList] = useState([]);
+	const [urlSong, setUrlSong] = useState(
+		"files/cartoons/songs/power-rangers.mp3"
+	);
+	const [songIndex, setSongIndex] = useState(17);
 	const myAudio = useRef();
 
 	useEffect(() => {
@@ -31,43 +31,33 @@ const Player = () => {
 				key={index.toString()}
 				onClick={() => {
 					setUrlSong(song.url);
-					console.log(song.url);
-					setSongPlaying(index);
+					setSongIndex(index);
+					console.log(index, song.name, song.url);
 				}}>
 				{song.name}
 			</li>
 		);
 	});
-	console.log(list);
 
 	const previousSong = index => {
-		console.log(index);
+		console.log(index - 1, list[index - 1].name, list[index - 1].url);
 		if (index == 0) {
-			setUrlSong(list[21].url);
+			setUrlSong(list[list.length - 1].url);
 		} else {
 			setUrlSong(list[index - 1].url);
 		}
 	};
 	const nextSong = index => {
-		console.log(index);
-		if (index == 21) {
+		console.log(index + 1, list[index + 1].name, list[index + 1].url);
+		if (index == list.length - 1) {
 			setUrlSong(list[0].url);
 		} else {
 			setUrlSong(list[index + 1].url);
 		}
 	};
 
-	/*const previous = () => {
-		return true;
-	};
-	const next = () => {
-		return true;
-	};*/
-
-	//let myAudio = document.querySelector("#myAudio");
-
 	return (
-		<div className="container bg-dark text-white my-2">
+		<div className="box">
 			<section className="col">
 				<ul>{songsList}</ul>
 			</section>
@@ -75,21 +65,21 @@ const Player = () => {
 			<video
 				controls
 				height="20rem"
-				width="100%"
+				width="80%"
 				ref={myAudio}
 				src={urlAPI.concat(urlSong)}
 				autoPlay
 			/>
 
-			<footer className="col d-flex justify-content-center ml-3 py-2">
+			<footer>
 				<i
 					className="fas fa-arrow-circle-left"
 					onClick={() => {
-						previousSong(songPlaying);
-						if (songPlaying != 0) {
-							setSongPlaying(songPlaying - 1);
+						previousSong(songIndex);
+						if (songIndex != 0) {
+							setSongIndex(songIndex - 1);
 						} else {
-							setSongPlaying(21);
+							setSongIndex(list.length - 1);
 						}
 						myAudio.current.play();
 					}}></i>
@@ -106,11 +96,11 @@ const Player = () => {
 				<i
 					className="fas fa-arrow-circle-right"
 					onClick={() => {
-						nextSong(songPlaying);
-						if (songPlaying != 21) {
-							setSongPlaying(songPlaying + 1);
+						nextSong(songIndex);
+						if (songIndex != list.length - 1) {
+							setSongIndex(songIndex + 1);
 						} else {
-							setSongPlaying(0);
+							setSongIndex(0);
 						}
 						myAudio.current.play();
 					}}></i>
