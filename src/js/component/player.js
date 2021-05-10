@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 const Player = () => {
 	const urlAPI = "https://assets.breatheco.de/apis/sound/";
-	const [urlSong, setUrlSong] = useState("files/mario/songs/castle.mp3");
+	const [urlSong, setUrlSong] = useState(
+		"files/videogame/songs/sonic_brain-zone.mp3"
+	);
+	const [songPlaying, setSongPlaying] = useState(11);
 	const [list, setList] = useState([]);
+	const myAudio = useRef();
 
 	useEffect(() => {
 		fetch(urlAPI.concat("songs"))
@@ -28,52 +32,88 @@ const Player = () => {
 				onClick={() => {
 					setUrlSong(song.url);
 					console.log(song.url);
+					setSongPlaying(index);
 				}}>
 				{song.name}
 			</li>
 		);
 	});
-
 	console.log(list);
 
-	const play = () => {
+	const previousSong = index => {
+		console.log(index);
+		if (index == 0) {
+			setUrlSong(list[21].url);
+		} else {
+			setUrlSong(list[index - 1].url);
+		}
+	};
+	const nextSong = index => {
+		console.log(index);
+		if (index == 21) {
+			setUrlSong(list[0].url);
+		} else {
+			setUrlSong(list[index + 1].url);
+		}
+	};
+
+	/*const previous = () => {
 		return true;
 	};
 	const next = () => {
 		return true;
-	};
+	};*/
 
-	let myAudio = document.querySelector("#myAudio");
+	//let myAudio = document.querySelector("#myAudio");
 
 	return (
 		<div className="container bg-dark text-white my-2">
 			<section className="col">
 				<ul>{songsList}</ul>
 			</section>
-			<div>
-				<audio id="myAudio" src={urlAPI.concat(urlSong)} />
-			</div>
 
-			<footer className="col d-flex justify-content-center ml-3">
-				<button>
-					<i className="fas fa-arrow-circle-left "></i>
-				</button>
-				<button
+			<video
+				controls
+				height="20rem"
+				width="100%"
+				ref={myAudio}
+				src={urlAPI.concat(urlSong)}
+				autoPlay
+			/>
+
+			<footer className="col d-flex justify-content-center ml-3 py-2">
+				<i
+					className="fas fa-arrow-circle-left"
 					onClick={() => {
-						myAudio.play();
-						console.log(urlSong);
-					}}>
-					<i className="fas fa-play-circle"></i>
-				</button>
-				<button
+						previousSong(songPlaying);
+						if (songPlaying != 0) {
+							setSongPlaying(songPlaying - 1);
+						} else {
+							setSongPlaying(21);
+						}
+						myAudio.current.play();
+					}}></i>
+				<i
+					className="fas fa-play-circle"
 					onClick={() => {
-						myAudio.pause();
-					}}>
-					<i className="fas fa-pause-circle"></i>
-				</button>
-				<button>
-					<i className="fas fa-arrow-circle-right"></i>
-				</button>
+						myAudio.current.play();
+					}}></i>
+				<i
+					className="fas fa-pause-circle"
+					onClick={() => {
+						myAudio.current.pause();
+					}}></i>
+				<i
+					className="fas fa-arrow-circle-right"
+					onClick={() => {
+						nextSong(songPlaying);
+						if (songPlaying != 21) {
+							setSongPlaying(songPlaying + 1);
+						} else {
+							setSongPlaying(0);
+						}
+						myAudio.current.play();
+					}}></i>
 			</footer>
 		</div>
 	);

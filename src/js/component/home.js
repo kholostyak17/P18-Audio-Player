@@ -3,4 +3,3 @@ import Player from "./player.js";
 export function Home() {
 	return <Player />;
 }
-
